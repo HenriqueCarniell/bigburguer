@@ -1,0 +1,19 @@
+.header-container {
+    width: 70%;
+}
+
+.div-input-header {
+    display: flex;
+    padding: 1.5rem;
+    align-items: baseline;
+}
+
+.div-list-navbar {
+    width: 30rem;
+}
+
+.list-itens-navbar {
+    display: flex;
+    justify-content: space-between;
+    list-style: none;
+}

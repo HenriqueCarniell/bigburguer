@@ -1,24 +1,19 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+
+import Header from './components/header/header';
+import FormCreateAccount from './components/forms/form-create-account/FormCreateAccount';
+import FormLoginAccount from './components/forms/form-login/FormLoginAccount';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <BrowserRouter>
+        <Routes>
+          <Route path='/' element={<Header />} />
+          <Route path='/criarconta' element={<FormCreateAccount />} />
+          <Route path='/login' element={<FormLoginAccount />} />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }
