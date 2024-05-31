@@ -45,7 +45,7 @@ function FormCreateAccount() {
                 </div>
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Label>Nome:</Form.Label>
-                    <Form.Control type="email" placeholder="Digite um nome" onChange={HandleSaveName}/>
+                    <Form.Control type="Name" placeholder="Digite um nome" onChange={HandleSaveName}/>
                     <Form.Text className="text-muted">
                     </Form.Text>
                 </Form.Group>

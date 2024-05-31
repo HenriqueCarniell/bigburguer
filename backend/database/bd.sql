@@ -54,3 +54,7 @@ CREATE Table Produto (
     descricao VARCHAR(100),
     preco int
 );
+
+select * from Cliente;
+
+delete from cliente;
