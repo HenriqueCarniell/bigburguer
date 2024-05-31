@@ -1,15 +1,15 @@
 const db = require('../database/bd');
 const bcrypt = require('bcrypt')
 
-let validateEmptyFields = ({ LoginName, LoginEmail, LoginPassword }) => {
-    return LoginName && LoginEmail && LoginPassword;
+let validateEmptyFields = ({ RegisterName, RegisterEmail, RegisterPassword }) => {
+    return RegisterName && RegisterEmail && RegisterPassword;
 }
 
-let validateDatabaseDataExist = ({ LoginEmail }) => {
+let validateDatabaseDataExist = ({ RegisterEmail }) => {
     return new Promise((resolve, reject) => {
         const sql = "SELECT * FROM Cliente WHERE email = ?";
 
-        db.query(sql, [LoginEmail], (err, result) => {
+        db.query(sql, [RegisterEmail], (err, result) => {
             if (err) {
                 console.log(err);
                 reject(err);
@@ -21,9 +21,9 @@ let validateDatabaseDataExist = ({ LoginEmail }) => {
 }
 
 exports.SendRegisterData = async (req, res) => {
-    const { LoginName, LoginEmail, LoginPassword } = req.body;
+    const { RegisterName, RegisterEmail, RegisterPassword } = req.body;
 
-    console.log(LoginName, LoginEmail, LoginPassword);
+    console.log(RegisterName, RegisterEmail, RegisterPassword);
 
     if (!validateEmptyFields(req.body)) {
         return res.send("Preencha todos os campos");
@@ -37,9 +37,9 @@ exports.SendRegisterData = async (req, res) => {
         const sql = "INSERT INTO Cliente(nome, email, senha) VALUES(?,?,?)";
 
         let salt = await bcrypt.genSalt(12)
-        let EncryptedPassword = await bcrypt.hash(LoginPassword,salt)
+        let EncryptedPassword = await bcrypt.hash(RegisterPassword,salt)
 
-        db.query(sql, [LoginName, LoginEmail, EncryptedPassword], (err, result) => {
+        db.query(sql, [RegisterName, RegisterEmail, EncryptedPassword], (err, result) => {
             if (err) {
                 console.log(err);
                 return res.send("Erro ao registrar os dados");

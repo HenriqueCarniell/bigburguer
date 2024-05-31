@@ -7,29 +7,29 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 
 function FormCreateAccount() {
-    const [saveLoginName, setLoginName] = useState<string>('');
-    const [saveLoginEmail, setLoginEmail] = useState<string>('');
-    const [saveLoginPassword, setLoginPassword] = useState<string>('');
+    const [saveRegisterName, setRegisterName] = useState<string>('');
+    const [saveRegisterEmail, setRegisterEmail] = useState<string>('');
+    const [saveRegisterPassword, setRegisterPassword] = useState<string>('');
     const [saveMsgRegister, setMsgRegister] = useState<string>('')
 
     let HandleSaveName = (e: ChangeEvent<HTMLInputElement>): void => {
-        setLoginName(e.target.value);
+        setRegisterName(e.target.value);
     }
 
     let HandleSaveEmail = (e: ChangeEvent<HTMLInputElement>): void => {
-        setLoginEmail(e.target.value);
+        setRegisterEmail(e.target.value);
     }
 
     let HandleSavePassword = (e: ChangeEvent<HTMLInputElement>): void => {
-        setLoginPassword(e.target.value);
+        setRegisterPassword(e.target.value);
     }
 
     let HandleSendDataBackend = () => {
         try {
             axios.post('http://localhost:4000/send/register/data', {
-                LoginName: saveLoginName,
-                LoginEmail: saveLoginEmail,
-                LoginPassword: saveLoginPassword
+                RegisterName: saveRegisterName,
+                RegisterEmail: saveRegisterEmail,
+                RegisterPassword: saveRegisterPassword
             }).then((response: any) => {
                 setMsgRegister(response.data)
             })
