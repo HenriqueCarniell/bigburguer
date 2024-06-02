@@ -29,7 +29,7 @@ exports.SendRegisterData = async (req, res) => {
 
     try {
         if (await validateDatabaseDataExist(req.body)) {
-            return res.send("Email já registrado");
+            return res.json({userEmailAlredyExist:"Email já registrado", Exist: true});
         }
 
         const sql = "INSERT INTO Cliente(nome, email, senha) VALUES(?,?,?)";
@@ -40,10 +40,10 @@ exports.SendRegisterData = async (req, res) => {
         db.query(sql, [RegisterName, RegisterEmail, EncryptedPassword], (err, result) => {
             if (err) {
                 console.log(err);
-                return res.send("Erro ao registrar os dados");
+                return res.json("Erro ao registrar os dados");
             } else {
                 console.log(result);
-                return res.status(201).send("Dados registrados com sucesso");
+                return res.json({userInsert: true});
             }
         });
 

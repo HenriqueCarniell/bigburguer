@@ -1,6 +1,8 @@
 import axios from 'axios';
 import './FormCreateAccount.css';
 
+import { useNavigate } from 'react-router-dom';
+
 import { ChangeEvent, useState } from 'react';
 
 import Button from 'react-bootstrap/Button';
@@ -24,15 +26,22 @@ function FormCreateAccount() {
         setRegisterPassword(e.target.value);
     }
 
+    const navigation = useNavigate()
+
     let HandleSendDataBackend = async () => {
         try {
-            await axios.post('http://localhost:4000/send/register/data', {
+            let response = await axios.post('http://localhost:4000/send/register/data', {
                 RegisterName: saveRegisterName,
                 RegisterEmail: saveRegisterEmail,
                 RegisterPassword: saveRegisterPassword
-            }).then((response: any) => {
-                setMsgRegister(response.data)
             })
+            console.log(response)
+            if(response.data.userEmailAlredyExist) {
+                setMsgRegister(response.data.userEmailAlredyExist)
+            } else {
+                navigation('/')
+            }
+            
         } catch (err: unknown) {
             console.log(err);
         }
