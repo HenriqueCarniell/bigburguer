@@ -24,9 +24,9 @@ function FormCreateAccount() {
         setRegisterPassword(e.target.value);
     }
 
-    let HandleSendDataBackend = () => {
+    let HandleSendDataBackend = async () => {
         try {
-            axios.post('http://localhost:4000/send/register/data', {
+            await axios.post('http://localhost:4000/send/register/data', {
                 RegisterName: saveRegisterName,
                 RegisterEmail: saveRegisterEmail,
                 RegisterPassword: saveRegisterPassword

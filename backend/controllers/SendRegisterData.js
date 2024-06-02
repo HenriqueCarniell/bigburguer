@@ -1,5 +1,5 @@
 const db = require('../database/bd');
-const bcrypt = require('bcrypt')
+const bcrypt = require('bcrypt');
 
 let validateEmptyFields = ({ RegisterName, RegisterEmail, RegisterPassword }) => {
     return RegisterName && RegisterEmail && RegisterPassword;
@@ -23,8 +23,6 @@ let validateDatabaseDataExist = ({ RegisterEmail }) => {
 exports.SendRegisterData = async (req, res) => {
     const { RegisterName, RegisterEmail, RegisterPassword } = req.body;
 
-    console.log(RegisterName, RegisterEmail, RegisterPassword);
-
     if (!validateEmptyFields(req.body)) {
         return res.send("Preencha todos os campos");
     }
@@ -36,8 +34,8 @@ exports.SendRegisterData = async (req, res) => {
 
         const sql = "INSERT INTO Cliente(nome, email, senha) VALUES(?,?,?)";
 
-        let salt = await bcrypt.genSalt(12)
-        let EncryptedPassword = await bcrypt.hash(RegisterPassword,salt)
+        let salt = await bcrypt.genSalt(12);
+        let EncryptedPassword = await bcrypt.hash(RegisterPassword,salt);
 
         db.query(sql, [RegisterName, RegisterEmail, EncryptedPassword], (err, result) => {
             if (err) {

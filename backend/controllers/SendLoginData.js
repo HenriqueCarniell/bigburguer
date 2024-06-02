@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const jwtData = require('../auth/auth')
+const jwtData = require('../auth/auth');
 const db = require('../database/bd');
 const bcrypt = require('bcrypt');
 
@@ -28,13 +28,15 @@ let validateDatabaseFields = ( LoginEmail ) => {
 exports.SendLoginData = async (req, res) => {
     const { LoginEmail, LoginPassword } = req.body;
 
+    console.log(LoginEmail, LoginPassword)
+
     if (!validateEmptyFields(req.body)) {
-        return res.status(500).json({msg:"Preencha todos os campos"});
+        return res.json({msg:"Preencha todos os campos"});
     }
 
-    let user = await validateDatabaseFields(LoginEmail)
+    let user = await validateDatabaseFields(LoginEmail);
 
-    console.log(user)
+    console.log(user);
 
     if(user) {
         let comparePassword = await bcrypt.compare(LoginPassword, user.senha);
@@ -43,14 +45,15 @@ exports.SendLoginData = async (req, res) => {
             const token = jwt.sign({}, jwtData.jwt.secret, {
                 subject: String(user.idcliente),
                 expiresIn: jwtData.jwt.expiresIn
-            })
+            });
 
-            console.log("Token: " + token)
-
-            token ? res.status(200).json({logado: true}) : res.status(200).json({logado: false})
+            console.log(token);
+            return res.status(200).json({logado: true})
         } else {
-            return res.status(404).json({user:"Email ou senha incorretos"});
+            return res.json({user:"Email ou senha incorretos", logado: false});
         }
+    } else {
+        return res.json({user:"Email ou senha incorretos", logado: false});
     }
 
 }
