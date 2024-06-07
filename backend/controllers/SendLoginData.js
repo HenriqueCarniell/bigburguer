@@ -47,8 +47,10 @@ exports.SendLoginData = async (req, res) => {
                 expiresIn: jwtData.jwt.expiresIn
             });
 
-            console.log(token);
-            return res.status(200).json({logado: true})
+            req.session.user = { id: user.idcliente };
+
+            let idcliente = req.session.user.id
+            res.status(201).json({ token: token,  idcliente, logado: true});
         } else {
             return res.json({user:"Email ou senha incorretos", logado: false});
         }

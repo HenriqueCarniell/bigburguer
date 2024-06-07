@@ -25,18 +25,21 @@ function FormLoginAccount() {
 
     const navigate = useNavigate();
 
-    let HandleSendDataBackend = async () => {
+    const HandleSendDataBackend = async () => {
         try {
             let response = await axios.post('http://localhost:4000/send/login/data', {
                 LoginEmail: saveLoginEmail,
                 LoginPassword: saveLoginPassword
-            })
+            });
+            console.log(response)
+            
             if (response.data.logado === true) {
+                localStorage.setItem('logado', JSON.stringify(true));
                 navigate('/');
             } else {
                 setMsgLogin(response.data.user);
             }
-        } catch (err: unknown) {
+        } catch (err) {
             console.log(err);
         }
     }

@@ -10,8 +10,12 @@ import { FaCartShopping } from "react-icons/fa6";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 function Header() {
+    let userStatusString: boolean | string | null = localStorage.getItem('logado');
+
     return (
         <div className="div-header">
             <div className='div-input-header'>
@@ -31,7 +35,9 @@ function Header() {
                         <li><MdHome />Home</li>
                         <li><FaBookBookmark />Pedido</li>
                         <li>
-                            <a href="/login">Login</a>
+                            {
+                                userStatusString ? <a>logado</a> : <a href="/login">Login</a>
+                            }
                         </li>
                         <li><FaCartShopping />Carrinho</li>
                     </ul>

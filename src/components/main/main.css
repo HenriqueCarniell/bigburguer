@@ -1,0 +1,8 @@
+.div-all-itens-product {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.div-itens-product {
+    padding: 2rem;
+}
