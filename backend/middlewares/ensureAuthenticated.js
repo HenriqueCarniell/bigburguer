@@ -1,22 +1,21 @@
-const jwt = require('jsonwebtoken');
-const authConfig = require('../auth');
+const { verify } = require('jsonwebtoken');
+const authConfig = require('../auth/auth');
 
-let ensureAuthenticated = (req, res, next) => {
-    const sessionCookie = req.cookies.userSession;
-    
-    if (sessionCookie) {
-        const { id, token } = sessionCookie;
-        jwt.verify(token, jwtData.jwt.secret, (err, decoded) => {
-            if (err) {
-                return res.status(401).json({ logado: false, mensagem: "Sessão inválida" });
-            } else {
-                req.session.user = { id: id, token: token };
-                next();
-            }
-        });
-    } else {
-        return res.status(401).json({ logado: false, mensagem: "Não autenticado" });
+function checkToken(req, res, next) {
+    const authHeader = req.headers["authorization"];
+    const token = authHeader && authHeader.split(" ")[1];
+  
+    if (!token) return res.status(401).json({ msg: "Acesso negado!" });
+  
+    try {
+      const secret = authConfig.jwt.secret;
+  
+      jwt.verify(token, secret);
+  
+      next();
+    } catch (err) {
+      res.status(400).json({ msg: "O Token é inválido!" });
     }
-}
+  }
 
-module.exports = ensureAuthenticated;
+module.exports = checkToken;

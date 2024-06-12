@@ -1,9 +1,9 @@
 const express = require('express');
 const app = express();
-const routes = require('./routes/routes')
+const routes = require('./routes/routes');
 const cors = require('cors');
 const session = require('express-session');
-const secret = require('./auth/auth')
+const secret = require('./auth/auth');
 const porta = 4000;
 
 const corsOptions = {
@@ -15,9 +15,9 @@ const corsOptions = {
 app.use(session({
     secret: secret.jwt.secret,
     resave: false,
-    saveUninitialized: true,
-    cookie: { secure: false }
+    saveUninitialized: true
 }));
+
 app.use(express.urlencoded({extended:true}));
 app.use(cors(corsOptions));
 app.use(express.json());

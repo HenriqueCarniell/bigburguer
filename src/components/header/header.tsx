@@ -14,14 +14,27 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 
 function Header() {
-    let userStatusString: boolean | string | null = localStorage.getItem('logado');
+    const [userStatusString, setUserStatusString] = useState<boolean | string | null>(null);
 
+
+    let logout = (): void => {
+        localStorage.removeItem('logado');
+        localStorage.removeItem('idusuario');
+        localStorage.removeItem('token');
+        setUserStatusString(null)
+    }
+
+    useEffect(() => {
+        const status = localStorage.getItem('logado');
+        setUserStatusString(status);
+    }, []);
+    
     return (
         <div className="div-header">
             <div className='div-input-header'>
                 <div className="header-container">
                     <InputGroup className="mb-3">
-                        <InputGroup.Text id="basic-addon1"><CiSearch/></InputGroup.Text>
+                        <InputGroup.Text id="basic-addon1"><CiSearch /></InputGroup.Text>
                         <Form.Control
                             placeholder="Digite o nome de um produto"
                             aria-label="Digite o nome de um produto"
@@ -36,7 +49,7 @@ function Header() {
                         <li><FaBookBookmark />Pedido</li>
                         <li>
                             {
-                                userStatusString ? <a>logado</a> : <a href="/login">Login</a>
+                                userStatusString ? <button className='btn btn-primary' onClick={() => logout()}>Sair</button> : <a href="/login">Login</a>
                             }
                         </li>
                         <li><FaCartShopping />Carrinho</li>

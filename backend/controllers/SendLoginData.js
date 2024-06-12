@@ -7,11 +7,11 @@ let validateEmptyFields = ({ LoginEmail, LoginPassword }) => {
     return LoginEmail && LoginPassword;
 }
 
-let validateDatabaseFields = ( LoginEmail ) => {
+let validateDatabaseFields = (LoginEmail) => {
     return new Promise((resolve, reject) => {
         const sql = "select * from Cliente where email = ?";
 
-        db.query(sql, [LoginEmail], (err,result) => {
+        db.query(sql, [LoginEmail], (err, result) => {
             if (err) {
                 reject(err);
                 console.log(err);
@@ -31,31 +31,32 @@ exports.SendLoginData = async (req, res) => {
     console.log(LoginEmail, LoginPassword)
 
     if (!validateEmptyFields(req.body)) {
-        return res.json({msg:"Preencha todos os campos"});
+        return res.json({ msg: "Preencha todos os campos" });
     }
 
     let user = await validateDatabaseFields(LoginEmail);
 
     console.log(user);
 
-    if(user) {
+    if (user) {
         let comparePassword = await bcrypt.compare(LoginPassword, user.senha);
 
-        if(comparePassword) {
-            const token = jwt.sign({}, jwtData.jwt.secret, {
-                subject: String(user.idcliente),
-                expiresIn: jwtData.jwt.expiresIn
-            });
+        if (comparePassword) {
+            const token = jwt.sign(
+                {
+                    id: user.idcliente
+                },
+                jwtData.jwt.secret,
+            );
 
-            req.session.user = { id: user.idcliente };
+            res.status(201).json({ token: token, idusuario: user.idcliente, logado: true });
 
-            let idcliente = req.session.user.id
-            res.status(201).json({ token: token,  idcliente, logado: true});
         } else {
-            return res.json({user:"Email ou senha incorretos", logado: false});
+            return res.json({ user: "Email ou senha incorretos", logado: false });
         }
     } else {
-        return res.json({user:"Email ou senha incorretos", logado: false});
+        return res.json({ user: "Email ou senha incorretos", logado: false });
     }
+
 
 }

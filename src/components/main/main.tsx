@@ -14,7 +14,7 @@ function Main() {
         preco: number
     }
 
-    const [saveDataProducts, setDataProducts] = useState<typeProducts[]>([])
+    const [saveDataProducts, setDataProducts] = useState<typeProducts[] >([])
 
     useEffect(() => {
         axios.get('http://localhost:4000/get/all/products')
@@ -22,6 +22,10 @@ function Main() {
                 setDataProducts(response.data)
             })
     }, [])
+
+    let getId = (idproduto:number):void => {
+            axios.get(`http://localhost:4000/get/product/${idproduto}`)
+    }
     return (
         <div className='div-all-itens-product'>
             {
@@ -34,7 +38,7 @@ function Main() {
                                 <Card.Text>
                                     {item.descricao}
                                 </Card.Text>
-                                <Button variant="primary" style={{ width: '100%' }}>Comprar</Button>
+                                <Button variant="primary" style={{ width: '100%' }} onClick={() => getId(item.idproduto)}>Comprar</Button>
                             </Card.Body>
                         </Card>
                     </div>

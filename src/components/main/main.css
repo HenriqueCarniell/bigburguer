@@ -1,6 +1,7 @@
 .div-all-itens-product {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
 }
 
 .div-itens-product {
