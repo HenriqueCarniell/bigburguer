@@ -4,15 +4,17 @@ import axios from 'axios'
 
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
+import { Link } from 'react-router-dom';
+
+interface typeProducts {
+    idproduto: number,
+    nome: string,
+    imagem: string,
+    descricao: string,
+    preco: number
+}
 
 function Main() {
-    interface typeProducts {
-        idproduto: number,
-        nome: string,
-        imagem: string,
-        descricao: string,
-        preco: number
-    }
 
     const [saveDataProducts, setDataProducts] = useState<typeProducts[] >([])
 
@@ -38,7 +40,9 @@ function Main() {
                                 <Card.Text>
                                     {item.descricao}
                                 </Card.Text>
-                                <Button variant="primary" style={{ width: '100%' }} onClick={() => getId(item.idproduto)}>Comprar</Button>
+                                <Link to={`/hamburguer/${item.idproduto}`} > 
+                                    <Button variant="primary" style={{ width: '100%' }}>Comprar</Button>
+                                </Link>
                             </Card.Body>
                         </Card>
                     </div>
