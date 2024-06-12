@@ -1,8 +1,91 @@
-.div-goback {
+.div-detail-products {
     display: flex;
-    padding: 10rem 10rem 10rem 30rem;
+    flex-direction: column;
+    padding: 10px;
+    margin: 10px auto;
+    max-width: 1200px;
+    border-radius: 8px;
 }
 
-.goback {
-    margin-left: 0.4rem;
+.div-goback {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.div-goback a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: inherit;
+}
+
+.div-image-desc {
+    display: flex;
+    flex-direction: column;
+}
+
+.image-detailhamburguer {
+    width: 50%;
+    height: 50%;
+    height: auto;
+    margin-bottom: 10px;
+}
+
+.image-detailhamburguer img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+.desc {
+    margin-bottom: 10px;
+}
+
+.primary.botao-add-cart {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.primary.botao-add-cart:hover {
+    background-color: #0056b3;
+}
+
+.div-btn-addcart {
+    text-align: center;
+}
+
+.botao-add-cart {
+    min-width: 90%;
+}
+
+@media (min-width: 768px) {
+    .div-image-desc {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .image-detailhamburguer, .desc {
+        width: 48%;
+    }
+}
+
+@media (min-width: 1024px) {
+    .div-image-desc {
+        flex-direction: row;
+    }
+
+    .image-detailhamburguer, .desc {
+        width: 45%;
+    }
+
+    .desc {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
 }

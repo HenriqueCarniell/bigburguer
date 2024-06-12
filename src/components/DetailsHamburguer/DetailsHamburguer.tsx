@@ -28,19 +28,28 @@ function DetailsHamburguer() {
     })
     return (
         <div>
-            <div className="div-goback">
-                <a href="/"> <i><HiOutlineArrowLeft /></i> </a> 
-
-                <p className="goback">Voltar para o inicio</p>
-            </div>
             {
                 saveDataHamburguer.map((item, key) => (
                     <div key={key} className='div-detail-products'>
-
+                        <div className="div-goback">
+                            <a href="/"> <i><HiOutlineArrowLeft /></i><p className="goback">Voltar para o inicio</p></a>
+                        </div>
+                        <div className="div-image-desc">
+                            <div className="image-detailhamburguer">
+                                <img src={`${item.imagem}`} alt="" />
+                            </div>
+                            <div className="desc">
+                                <p>{item.descricao}</p>
+                            </div>
+                        </div>
+                        <div className="div-btn-addcart">
+                            <button className="primary botao-add-cart">Adicionar ao carrinho</button>
+                        </div>
                     </div>
                 ))
             }
         </div>
+
     );
 }
 
