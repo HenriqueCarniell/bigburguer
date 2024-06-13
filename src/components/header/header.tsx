@@ -11,10 +11,14 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import { useEffect, useState } from 'react';
-import axios from 'axios';
+import OffCanvasExample from '../sidebar/sidebar'
+import { BsJustify } from "react-icons/bs";
+
 
 function Header() {
     const [userStatusString, setUserStatusString] = useState<boolean | string | null>(null);
+
+    const [show, setShow] = useState(false);
 
 
     let logout = (): void => {
@@ -28,7 +32,7 @@ function Header() {
         const status = localStorage.getItem('logado');
         setUserStatusString(status);
     }, []);
-    
+
     return (
         <div className="div-header">
             <div className='div-input-header'>
@@ -53,6 +57,11 @@ function Header() {
                             }
                         </li>
                         <li><FaCartShopping />Carrinho</li>
+                        <li>
+                            <OffCanvasExample show={show} setShow={setShow} placement="end">
+                                <BsJustify size="30px"/>
+                            </OffCanvasExample>
+                        </li>
                     </ul>
                 </div>
             </div>

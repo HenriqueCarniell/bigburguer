@@ -17,3 +17,27 @@
     justify-content: space-between;
     list-style: none;
 }
+
+@media (max-width: 885px) {
+    .list-itens-navbar li {
+        display: none;
+    }
+    
+    .list-itens-navbar li:last-child {
+        display: block;
+        position: fixed;
+        right: 0;
+        margin-top: -0.5rem;
+        width: 4rem;
+    }
+
+    .header-container {
+        width: 100rem;
+    }
+}
+
+@media (min-width: 885px) {
+    .list-itens-navbar li:last-child {
+        display: none;
+    }
+}
