@@ -22,7 +22,7 @@
     .list-itens-navbar li {
         display: none;
     }
-    
+
     .list-itens-navbar li:last-child {
         display: block;
         position: fixed;

@@ -1,3 +1,4 @@
+//css
 import './header.css'
 
 //react icons
@@ -59,7 +60,7 @@ function Header() {
                         <li><FaCartShopping />Carrinho</li>
                         <li>
                             <OffCanvasExample show={show} setShow={setShow} placement="end">
-                                <BsJustify size="30px"/>
+                                <BsJustify size="30px" />
                             </OffCanvasExample>
                         </li>
                     </ul>

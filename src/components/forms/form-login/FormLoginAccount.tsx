@@ -1,11 +1,17 @@
+//axios
 import axios from 'axios';
+
+//css
 import './FormLoginAccount.css';
 
+//react
 import { ChangeEvent, useState } from 'react';
 
+//bootstrap
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 
+//react-router-dom
 import { useNavigate } from 'react-router-dom';
 
 function FormLoginAccount() {
@@ -37,7 +43,7 @@ function FormLoginAccount() {
                 localStorage.setItem('logado', JSON.stringify(true));
                 localStorage.setItem('idusuario', JSON.stringify(response.data.idusuario));
                 localStorage.setItem('token', JSON.stringify(response.data.token));
-                
+
                 navigate('/')
             } else {
                 setMsgLogin(response.data.user);

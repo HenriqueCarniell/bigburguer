@@ -1,7 +1,13 @@
+//css
 import './main.css'
+
+//react
 import { useEffect, useState } from 'react'
+
+//axios
 import axios from 'axios'
 
+//bootstrap
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import { Link } from 'react-router-dom';
@@ -16,7 +22,7 @@ interface typeProducts {
 
 function Main() {
 
-    const [saveDataProducts, setDataProducts] = useState<typeProducts[] >([])
+    const [saveDataProducts, setDataProducts] = useState<typeProducts[]>([])
 
     useEffect(() => {
         axios.get('http://localhost:4000/get/all/products')
@@ -25,8 +31,8 @@ function Main() {
             })
     }, [])
 
-    let getId = (idproduto:number):void => {
-            axios.get(`http://localhost:4000/get/product/${idproduto}`)
+    let getId = (idproduto: number): void => {
+        axios.get(`http://localhost:4000/get/product/${idproduto}`)
     }
     return (
         <div className='div-all-itens-product'>
@@ -40,7 +46,7 @@ function Main() {
                                 <Card.Text>
                                     {item.descricao}
                                 </Card.Text>
-                                <Link to={`/hamburguer/${item.idproduto}`} > 
+                                <Link to={`/hamburguer/${item.idproduto}`} >
                                     <Button variant="primary" style={{ width: '100%' }}>Comprar</Button>
                                 </Link>
                             </Card.Body>

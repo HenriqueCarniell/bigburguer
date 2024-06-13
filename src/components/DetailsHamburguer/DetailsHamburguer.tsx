@@ -1,9 +1,16 @@
+// axios
 import axios from "axios";
+
+// react
 import { useEffect, useState } from "react";
+
+// react-router-dom
 import { useParams } from "react-router-dom";
 
+// react icons
 import { HiOutlineArrowLeft } from "react-icons/hi";
 
+// css
 import './DetailsHamburguer.css'
 
 interface productsType {

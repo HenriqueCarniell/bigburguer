@@ -1,10 +1,16 @@
+// raxios
 import axios from 'axios';
+
+//css
 import './FormCreateAccount.css';
 
+// react-router-dom
 import { useNavigate } from 'react-router-dom';
 
+//react
 import { ChangeEvent, useState } from 'react';
 
+//bootstrap
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 
@@ -36,12 +42,12 @@ function FormCreateAccount() {
                 RegisterPassword: saveRegisterPassword
             })
             console.log(response)
-            if(response.data.userEmailAlredyExist) {
+            if (response.data.userEmailAlredyExist) {
                 setMsgRegister(response.data.userEmailAlredyExist)
             } else {
                 navigation('/')
             }
-            
+
         } catch (err: unknown) {
             console.log(err);
         }
