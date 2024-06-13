@@ -3,8 +3,8 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 //Components
 import Header from './components/header/header';
-import FormCreateAccount from './components/forms/form-create-account/FormCreateAccount';
-import FormLoginAccount from './components/forms/form-login/FormLoginAccount';
+import FormCreateAccount from './components/forms/formCreateAccount/FormCreateAccount';
+import FormLoginAccount from './components/forms/formLogin/FormLoginAccount';
 import Main from './components/main/main';
 import DetailsHamburguer from './components/DetailsHamburguer/DetailsHamburguer';
 
