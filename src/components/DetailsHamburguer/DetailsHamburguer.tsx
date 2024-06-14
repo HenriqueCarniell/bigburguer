@@ -33,6 +33,13 @@ function DetailsHamburguer() {
                 setDataHamburguer(response.data)
             })
     })
+
+    let HandleSaveProductCart = (idproduto:number):void => {
+        axios.get(`http://localhost:4000/add/cart/product/${idproduto}`)
+            .then((response) => {
+                console.log(response)
+            })
+    }
     return (
         <div>
             {
@@ -50,7 +57,7 @@ function DetailsHamburguer() {
                             </div>
                         </div>
                         <div className="div-btn-addcart">
-                            <button className="primary botao-add-cart">Adicionar ao carrinho</button>
+                            <button className="primary botao-add-cart" onClick={() => HandleSaveProductCart(item.idproduto)}>Adicionar ao carrinho</button>
                         </div>
                     </div>
                 ))

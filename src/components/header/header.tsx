@@ -57,7 +57,7 @@ function Header() {
                                 userStatusString ? <button className='btn btn-primary' onClick={() => logout()}>Sair</button> : <a href="/login">Login</a>
                             }
                         </li>
-                        <li><FaCartShopping />Carrinho</li>
+                        <li><a href="/carrinho"><FaCartShopping />Carrinho</a></li>
                         <li>
                             <OffCanvasExample show={show} setShow={setShow} placement="end">
                                 <BsJustify size="30px" />

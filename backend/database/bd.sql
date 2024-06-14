@@ -43,6 +43,15 @@ CREATE Table Carrinho_de_compras (
     Foreign Key (fk_produto) REFERENCES Produto(idproduto)
 );
 
+select * from Carrinho_de_compras;
+
+-- Codigo SQL para trazer todos os itens de carrinho de compras associados a pedido
+SELECT p.*
+FROM Carrinho_de_compras c
+JOIN Produto p ON c.fk_produto = p.idproduto;
+
+
+
 drop table Pedido;
 CREATE Table Pedido (
     idpedido int PRIMARY KEY AUTO_INCREMENT,
