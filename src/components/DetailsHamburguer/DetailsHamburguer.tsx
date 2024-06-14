@@ -28,7 +28,7 @@ function DetailsHamburguer() {
     const { idproduto } = useParams();
 
     useEffect(() => {
-        axios.get(`https://api-bigburguer.onrender.com/get/detailproduct/${idproduto}`)
+        axios.get(`http://localhost:4000/get/detailproduct/${idproduto}`)
             .then(response => {
                 setDataHamburguer(response.data)
             })

@@ -25,14 +25,14 @@ function Main() {
     const [saveDataProducts, setDataProducts] = useState<typeProducts[]>([])
 
     useEffect(() => {
-        axios.get('https://api-bigburguer.onrender.com/get/all/products')
+        axios.get('http://localhost:4000/get/all/products')
             .then((response) => {
                 setDataProducts(response.data)
             })
     }, [])
 
     let getId = (idproduto: number): void => {
-        axios.get(`https://api-bigburguer.onrender.com/get/product/${idproduto}`)
+        axios.get(`http://localhost:4000/get/product/${idproduto}`)
     }
     return (
         <div className='div-all-itens-product'>
