@@ -6,7 +6,8 @@ import Header from './components/header/header';
 import FormCreateAccount from './components/forms/formCreateAccount/FormCreateAccount';
 import FormLoginAccount from './components/forms/formLogin/FormLoginAccount';
 import Main from './components/main/main';
-import DetailsHamburguer from './components/DetailsHamburguer/DetailsHamburguer';
+import DetailsHamburguer from './components/detailsHamburguer/DetailsHamburguer';
+import Cart from './components/cart/cart';
 
 function App() {
 
@@ -23,6 +24,7 @@ function App() {
           <Route path='/criarconta' element={<FormCreateAccount />} />
           <Route path='/login' element={<FormLoginAccount />} />
           <Route path={'/hamburguer/:idproduto'} element={<DetailsHamburguer />} />
+          <Route path={'/carrinho'} element={<Cart />} />
         </Routes>
       </BrowserRouter>
     </div>
