@@ -13,7 +13,7 @@ Router.post('/send/register/data', SendRegisterData.SendRegisterData);
 Router.post('/send/login/data', SendLoginData.SendLoginData);
 Router.get('/get/all/products', getAllProducts.getAllProducts);
 Router.get('/get/detailproduct/:idproduto', getDetailProducts.getDetailProduct);
-Router.get('/add/cart/product/:idproduto', addProductCart.addProductCart);
-Router.get('/get/cart/product/', getProductCart.getProductCart);
+Router.get('/add/cart/product/:idproduto/:idusuario', addProductCart.addProductCart);
+Router.get('/get/cart/product/:idusuario', getProductCart.getProductCart);
 
 module.exports = Router;

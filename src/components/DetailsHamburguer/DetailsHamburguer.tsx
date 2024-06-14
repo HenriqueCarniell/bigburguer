@@ -24,7 +24,7 @@ interface productsType {
 function DetailsHamburguer() {
 
     const [saveDataHamburguer, setDataHamburguer] = useState<productsType[]>([]);
-
+    const [saveIdUsuario, setIdUsuario] = useState<string | null>('')
     const { idproduto } = useParams();
 
     useEffect(() => {
@@ -32,10 +32,15 @@ function DetailsHamburguer() {
             .then(response => {
                 setDataHamburguer(response.data)
             })
-    })
+    });
+
+    useEffect(() => {
+        let idusuario = localStorage.getItem('idusuario');
+        setIdUsuario(idusuario)
+    }, [])
 
     let HandleSaveProductCart = (idproduto:number):void => {
-        axios.get(`http://localhost:4000/add/cart/product/${idproduto}`)
+        axios.get(`http://localhost:4000/add/cart/product/${idproduto}/${saveIdUsuario}`)
             .then((response) => {
                 console.log(response)
             })

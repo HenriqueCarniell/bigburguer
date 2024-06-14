@@ -13,18 +13,25 @@ interface typeProducts {
 }
 
 function Cart() {
-    const [saveCartData, setCartData] = useState<typeProducts[]>([])
-
+    const [saveCartData, setCartData] = useState<typeProducts[]>([]);
+    const [saveIdUsuario, setIdUsuario] = useState<string | null>('');
+    
     useEffect(() => {
-        axios.get(`http://localhost:4000/get/cart/product/`)
-            .then((response) => {
-                setCartData(response.data);
-                console.log(response.data);
-            })
-            .catch((err:unknown) => {
-                console.log(err)
-            })
-    }, [])
+        let idusuario = localStorage.getItem('idusuario');
+        setIdUsuario(idusuario);
+    }, []);
+    
+    useEffect(() => {
+            axios.get(`http://localhost:4000/get/cart/product/${saveIdUsuario}`)
+                .then((response) => {
+                    setCartData(response.data);
+                    console.log(response.data);
+                })
+                .catch((err: unknown) => {
+                    console.log(err);
+                });
+    }, [saveIdUsuario]); 
+    
 
     return (
         <div>

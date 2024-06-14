@@ -50,7 +50,9 @@ function Header() {
 
                 <div className='div-list-navbar'>
                     <ul className='list-itens-navbar'>
-                        <li><MdHome />Home</li>
+                        <li>
+                            <a href="/"><MdHome />Home</a>
+                        </li>
                         <li><FaBookBookmark />Pedido</li>
                         <li>
                             {
