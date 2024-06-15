@@ -1,4 +1,28 @@
 .div-cart-products {
     display: flex;
     justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.title-cart-name {
+    font-size: 30px;
+    margin-left: 3rem;
+}
+
+.div-cart-price {
+    background-color: rgb(212, 212, 212);
+    width: 13rem;
+    margin-bottom: 3rem;
+    border-radius: 10px;
+    margin-left: 3rem;
+    padding: 3px;
+}
+
+.div-price {
+    text-align: center;
+    font-size: 25px;
+}
+
+.title-cart-price {
+    font-size: 28px;
 }

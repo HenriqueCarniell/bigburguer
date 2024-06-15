@@ -2,7 +2,7 @@
 import './main.css'
 
 //react
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 
 //axios
 import axios from 'axios'
@@ -11,6 +11,7 @@ import axios from 'axios'
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import { Link } from 'react-router-dom';
+import { SearchContext } from '../../context/searchContext';
 
 interface typeProducts {
     idproduto: number,
@@ -24,6 +25,8 @@ function Main() {
 
     const [saveDataProducts, setDataProducts] = useState<typeProducts[]>([])
 
+    const { searchTerm } = useContext(SearchContext);
+
     useEffect(() => {
         axios.get('http://localhost:4000/get/all/products')
             .then((response) => {
@@ -31,9 +34,16 @@ function Main() {
             })
     }, [])
 
-    let getId = (idproduto: number): void => {
-        axios.get(`http://localhost:4000/get/product/${idproduto}`)
-    }
+    useEffect(() => {
+            axios.get('http://localhost:4000/get/all/products')
+            .then((response) => {
+                let results = response.data.filter((item: { nome: string; }) =>
+                    item.nome.toLowerCase().includes(searchTerm.toLowerCase())
+                );
+                setDataProducts(results);
+            })
+    }, [searchTerm]);
+
     return (
         <div className='div-all-itens-product'>
             {
@@ -46,9 +56,26 @@ function Main() {
                                 <Card.Text>
                                     {item.descricao}
                                 </Card.Text>
-                                <Card.Text>
-                                    R$ {item.preco}
-                                </Card.Text>
+                                <div className='product-price-quantity'>
+                                    <Card.Text>
+                                        R$ {item.preco}
+                                    </Card.Text>
+
+                                    <div>
+                                        <select name="productQuantity" id="productQuantity">
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                            <option value="6">6</option>
+                                            <option value="7">7</option>
+                                            <option value="8">8</option>
+                                            <option value="9">9</option>
+                                            <option value="10">10</option>
+                                        </select>
+                                    </div>
+                                </div>
                                 <Link to={`/hamburguer/${item.idproduto}`} >
                                     <Button variant="primary" style={{ width: '100%' }}>Comprar</Button>
                                 </Link>

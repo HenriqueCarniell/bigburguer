@@ -50,16 +50,20 @@ function Cart() {
     }
 
     return (
-        <div>
+        <div className='container-cart-item'>
             <div>
                 <Header />
             </div>
             <div>
-                Carrinho de compras
+                <p className='title-cart-name'>Carrinho de compras</p>
             </div>
 
-            <div>
-                Preço total do carrinho {saveTotalPrice}
+            <div className='div-cart-price'>
+                <p className='title-cart-price'>Preço total do carrinho: </p>
+
+                <div className='div-price'>
+                    <i>R$ {saveTotalPrice}</i>
+                </div>
             </div>
 
             <div className='div-cart-products'>
