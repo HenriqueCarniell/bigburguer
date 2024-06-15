@@ -4,7 +4,6 @@ import axios from 'axios';
 //css
 import './FormLoginAccount.css';
 
-
 //react
 import { ChangeEvent, useState } from 'react';
 
@@ -45,7 +44,7 @@ function FormLoginAccount() {
                 localStorage.setItem('idusuario', JSON.stringify(response.data.idusuario));
                 localStorage.setItem('token', JSON.stringify(response.data.token));
 
-                navigate('/')
+                navigate('/');
             } else {
                 setMsgLogin(response.data.user);
             }

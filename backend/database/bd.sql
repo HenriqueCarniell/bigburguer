@@ -43,22 +43,12 @@ CREATE Table Produto (
     preco FLOAT(10,2) NOT NULL
 );
 
-drop table Pedido;
-CREATE Table Pedido (
-    idpedido int PRIMARY KEY AUTO_INCREMENT,
-    quantidade int,
-    dataPedido DATE,
-    preco FLOAT(10,2)
-);
-
 drop table Carrinho_de_compras;
 CREATE Table Carrinho_de_compras (
     idcarrinhoDeCompras int PRIMARY KEY AUTO_INCREMENT,
-    fk_pedido int,
     fk_produto int NOT NULL,
     fk_cliente int NOT NULL,
     quantidade int,
-    Foreign Key (fk_pedido) REFERENCES Pedido(idpedido),
     Foreign Key (fk_produto) REFERENCES Produto(idproduto),
     Foreign Key (fk_cliente) REFERENCES Cliente(idcliente)
 );

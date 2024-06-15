@@ -42,12 +42,10 @@ exports.SendLoginData = async (req, res) => {
         let comparePassword = await bcrypt.compare(LoginPassword, user.senha);
 
         if (comparePassword) {
-            const token = jwt.sign(
-                {
-                    id: user.idcliente
-                },
-                jwtData.jwt.secret,
-            );
+            const token = jwt.sign({}, jwtData.jwt.secret, {
+                subject: String(user.idcliente),
+                expiresIn: jwtData.jwt.expiresIn
+            })
 
             res.status(201).json({ token: token, idusuario: user.idcliente, logado: true });
 

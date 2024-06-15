@@ -23,19 +23,19 @@ interface typeProducts {
 
 function Main() {
 
-    const [saveDataProducts, setDataProducts] = useState<typeProducts[]>([])
+    const [saveDataProducts, setDataProducts] = useState<typeProducts[]>([]);
 
     const { searchTerm } = useContext(SearchContext);
 
     useEffect(() => {
         axios.get('http://localhost:4000/get/all/products')
             .then((response) => {
-                setDataProducts(response.data)
+                setDataProducts(response.data);
             })
     }, [])
 
     useEffect(() => {
-            axios.get('http://localhost:4000/get/all/products')
+        axios.get('http://localhost:4000/get/all/products')
             .then((response) => {
                 let results = response.data.filter((item: { nome: string; }) =>
                     item.nome.toLowerCase().includes(searchTerm.toLowerCase())

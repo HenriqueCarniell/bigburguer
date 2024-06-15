@@ -39,12 +39,21 @@ function DetailsHamburguer() {
         setIdUsuario(idusuario)
     }, [])
 
+    const token = localStorage.getItem('token');
+
+    const config = {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    };
+
     let HandleSaveProductCart = (idproduto: number): void => {
-        axios.get(`http://localhost:4000/add/cart/product/${idproduto}/${saveIdUsuario}`)
+        axios.get(`http://localhost:4000/add/cart/product/${idproduto}/${saveIdUsuario}`, config)
             .then((response) => {
                 console.log(response)
             })
     }
+
     return (
         <div>
             {

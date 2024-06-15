@@ -18,7 +18,7 @@ function FormCreateAccount() {
     const [saveRegisterName, setRegisterName] = useState<string>('');
     const [saveRegisterEmail, setRegisterEmail] = useState<string>('');
     const [saveRegisterPassword, setRegisterPassword] = useState<string>('');
-    const [saveMsgRegister, setMsgRegister] = useState<string>('')
+    const [saveMsgRegister, setMsgRegister] = useState<string>('');
 
     let HandleSaveName = (e: ChangeEvent<HTMLInputElement>): void => {
         setRegisterName(e.target.value);
@@ -41,11 +41,10 @@ function FormCreateAccount() {
                 RegisterEmail: saveRegisterEmail,
                 RegisterPassword: saveRegisterPassword
             })
-            console.log(response)
             if (response.data.userEmailAlredyExist) {
-                setMsgRegister(response.data.userEmailAlredyExist)
+                setMsgRegister(response.data.userEmailAlredyExist);
             } else {
-                navigation('/')
+                navigation('/');
             }
 
         } catch (err: unknown) {

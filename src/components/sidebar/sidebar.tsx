@@ -1,10 +1,10 @@
+// CSS
 import './sidebar.css';
 
 //bootstrap
 import { useEffect, useState } from 'react';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import { FaBookBookmark, FaCartShopping } from 'react-icons/fa6';
-import { MdHome } from 'react-icons/md';
 
 
 function OffCanvasExample({ show, setShow, children, ...props }: any) {
@@ -16,7 +16,7 @@ function OffCanvasExample({ show, setShow, children, ...props }: any) {
         localStorage.removeItem('logado');
         localStorage.removeItem('idusuario');
         localStorage.removeItem('token');
-        setUserStatusString(null)
+        setUserStatusString(null);
     }
 
     useEffect(() => {

@@ -36,8 +36,16 @@ function Cart() {
             });
     }, [saveIdUsuario]);
 
+    let token = localStorage.getItem('token')
+
+    const config = {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    };
+
     const handleDeleteProductCart = (idproduto: number): void => {
-        axios.delete(`http://localhost:4000/delete/product/${idproduto}/${saveIdUsuario}`)
+        axios.delete(`http://localhost:4000/delete/product/${idproduto}/${saveIdUsuario}`, config)
             .then(() => {
                 const updatedCartData = saveCartData.filter(item => item.idproduto !== idproduto);
                 const updatedTotalPrice = updatedCartData.reduce((acc, item) => acc + item.preco, 0);
