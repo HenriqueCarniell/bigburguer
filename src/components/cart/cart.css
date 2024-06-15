@@ -1,7 +1,10 @@
 .div-cart-products {
     display: flex;
-    justify-content: space-around;
     flex-wrap: wrap;
+}
+
+.cart-item {
+    margin-left: 3rem;
 }
 
 .title-cart-name {
@@ -16,11 +19,6 @@
     border-radius: 10px;
     margin-left: 3rem;
     padding: 3px;
-}
-
-.div-price {
-    text-align: center;
-    font-size: 25px;
 }
 
 .title-cart-price {

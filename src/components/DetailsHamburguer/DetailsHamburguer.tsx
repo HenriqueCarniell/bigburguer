@@ -39,7 +39,7 @@ function DetailsHamburguer() {
         setIdUsuario(idusuario)
     }, [])
 
-    let HandleSaveProductCart = (idproduto:number):void => {
+    let HandleSaveProductCart = (idproduto: number): void => {
         axios.get(`http://localhost:4000/add/cart/product/${idproduto}/${saveIdUsuario}`)
             .then((response) => {
                 console.log(response)
@@ -57,8 +57,17 @@ function DetailsHamburguer() {
                             <div className="image-detailhamburguer">
                                 <img src={`${item.imagem}`} alt="" />
                             </div>
+
                             <div className="desc">
-                                <p>{item.descricao}</p>
+                                <div>
+                                    <h1>{item.nome}</h1>
+                                </div>
+                                <div className="div-desc">
+                                    <p>Descrição: {item.descricao}</p>
+                                </div>
+                                <div className="div-price">
+                                    <p>R$ {item.preco}</p>
+                                </div>
                             </div>
                         </div>
                         <div className="div-btn-addcart">

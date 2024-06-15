@@ -55,8 +55,9 @@ drop table Carrinho_de_compras;
 CREATE Table Carrinho_de_compras (
     idcarrinhoDeCompras int PRIMARY KEY AUTO_INCREMENT,
     fk_pedido int,
-    fk_produto int,
+    fk_produto int NOT NULL,
     fk_cliente int NOT NULL,
+    quantidade int,
     Foreign Key (fk_pedido) REFERENCES Pedido(idpedido),
     Foreign Key (fk_produto) REFERENCES Produto(idproduto),
     Foreign Key (fk_cliente) REFERENCES Cliente(idcliente)
