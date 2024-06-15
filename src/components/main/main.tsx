@@ -39,12 +39,15 @@ function Main() {
             {
                 saveDataProducts.map((item, key) => (
                     <div key={key} className='div-itens-product'>
-                        <Card style={{ width: '18rem', height: '26rem' }}>
+                        <Card style={{ width: '18rem', height: '28rem' }}>
                             <Card.Body>
                                 <Card.Img variant="top" src={item.imagem} alt={item.nome} style={{ width: '15rem', height: '15rem' }} />
                                 <Card.Title>{item.nome}</Card.Title>
                                 <Card.Text>
                                     {item.descricao}
+                                </Card.Text>
+                                <Card.Text>
+                                    R$ {item.preco}
                                 </Card.Text>
                                 <Link to={`/hamburguer/${item.idproduto}`} >
                                     <Button variant="primary" style={{ width: '100%' }}>Comprar</Button>

@@ -1,0 +1,4 @@
+.div-cart-products {
+    display: flex;
+    justify-content: space-around;
+}

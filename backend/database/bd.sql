@@ -71,6 +71,10 @@ JOIN Produto p ON c.fk_produto = p.idproduto
 JOIN Cliente cl ON c.fk_cliente = cl.idcliente
 WHERE cl.idcliente = 1;
 
+select SUM(p.preco) from carrinho_de_compras c
+join produto p on c.fk_produto = p.idproduto
+WHERE c.fk_cliente = 1;
+
 
 INSERT INTO Produto (nome, imagem, descricao, preco) VALUES
 ('Classic Burger', 'https://www.tasteandflavors.com/wp-content/uploads/2020/05/CLASSIC-BURGER.jpg', 'A classic beef burger with lettuce, tomato, and cheese.', 15),

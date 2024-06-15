@@ -1,8 +1,10 @@
+//css
+import './cart.css';
+
 import axios from "axios";
 import Header from "../header/header";
 import { useEffect, useState } from "react";
 import { Button, Card } from "react-bootstrap";
-import { Link } from "react-router-dom";
 
 interface typeProducts {
     idproduto: number,
@@ -15,6 +17,7 @@ interface typeProducts {
 function Cart() {
     const [saveCartData, setCartData] = useState<typeProducts[]>([]);
     const [saveIdUsuario, setIdUsuario] = useState<string | null>('');
+    const [saveTotalPrice, setTotalPrice] = useState<number | null>(0);
     
     useEffect(() => {
         let idusuario = localStorage.getItem('idusuario');
@@ -24,14 +27,27 @@ function Cart() {
     useEffect(() => {
             axios.get(`http://localhost:4000/get/cart/product/${saveIdUsuario}`)
                 .then((response) => {
-                    setCartData(response.data);
+                    setCartData(response.data.products);
+                    setTotalPrice(response.data.total_preco);
                     console.log(response.data);
                 })
                 .catch((err: unknown) => {
                     console.log(err);
                 });
-    }, [saveIdUsuario]); 
+    }, [saveIdUsuario]);
     
+    const handleDeleteProductCart = (idproduto: number): void => {
+        axios.delete(`http://localhost:4000/delete/product/${idproduto}/${saveIdUsuario}`)
+            .then(() => {
+                const updatedCartData = saveCartData.filter(item => item.idproduto !== idproduto);
+                const updatedTotalPrice = updatedCartData.reduce((acc, item) => acc + item.preco, 0);
+                setCartData(updatedCartData);
+                setTotalPrice(updatedTotalPrice);
+            })
+            .catch((err: unknown) => {
+                console.log(err);
+            });
+    }
 
     return (
         <div>
@@ -43,17 +59,25 @@ function Cart() {
             </div>
 
             <div>
+                Preço total do carrinho {saveTotalPrice}
+            </div>
+
+            <div className='div-cart-products'>
             {
                 saveCartData.map((item, key) => (
                     <div key={key} className=''>
-                        <Card style={{ width: '18rem', height: '26rem' }}>
+                        <Card style={{ width: '18rem', height: '32rem' }}>
                             <Card.Body>
                                 <Card.Img variant="top" src={item.imagem} alt={item.nome} style={{ width: '15rem', height: '15rem' }} />
                                 <Card.Title>{item.nome}</Card.Title>
                                 <Card.Text>
                                     {item.descricao}
                                 </Card.Text>
-                                    <Button variant="primary" style={{ width: '100%' }}>Comprar</Button>
+                                <Card.Text>
+                                    R$ {item.preco}
+                                </Card.Text>
+                                    <Button variant="primary" style={{ width: '100%', marginBottom: '1rem'}}>Comprar</Button>
+                                    <Button variant="danger" style={{ width: '100%' }} onClick={() => handleDeleteProductCart(item.idproduto)}>Deleter do carrinho</Button>
                             </Card.Body>
                         </Card>
                     </div>
