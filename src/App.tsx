@@ -6,10 +6,10 @@ import { SearchProduct } from './context/searchContext';
 
 //Components
 import Header from './components/header/header';
-import FormCreateAccount from './components/forms/formCreateAccount/FormCreateAccount';
-import FormLoginAccount from './components/forms/formLogin/FormLoginAccount';
+import FormCreateAccount from './components/forms/formcreateaccount/FormCreateAccount';
+import FormLoginAccount from './components/forms/formlogin/FormLoginAccount';
 import Main from './components/main/main';
-import DetailsHamburguer from './components/detailsHamburguer/DetailsHamburguer';
+import DetailsHamburguer from './components/detailshamburguer/DetailsHamburguer';
 import Cart from './components/cart/cart';
 
 function App() {
