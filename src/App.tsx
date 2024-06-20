@@ -9,7 +9,7 @@ import Header from './components/header/header';
 import FormCreateAccount from './components/forms/formCreateAccount/FormCreateAccount';
 import FormLoginAccount from './components/forms/formLogin/FormLoginAccount';
 import Main from './components/main/main';
-import DetailsHamburguer from './components/detailshamburguer/DetailsHamburguer';
+import DetailsHamburguer from './components/detailsHamburguer/DetailsHamburguer';
 import Cart from './components/cart/cart';
 
 function App() {
