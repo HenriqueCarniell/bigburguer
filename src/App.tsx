@@ -6,7 +6,7 @@ import { SearchProduct } from './context/searchContext';
 
 //Components
 import Header from './components/header/header';
-import FormCreateAccount from './components/forms/formcreateaccount/formcreateaccount';
+import FormCreateAccount from './components/forms/formcreate/formcreate';
 import FormLoginAccount from './components/forms/formlogin/formloginaccount';
 import Main from './components/main/main';
 import DetailsHamburguer from './components/details/details';
