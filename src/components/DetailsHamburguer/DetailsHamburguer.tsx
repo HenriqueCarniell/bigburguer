@@ -1,5 +1,5 @@
 //css
-import './DetailsHamburguer.css';
+import './detailsHamburguer.css';
 
 // React
 import { useEffect, useState } from "react";

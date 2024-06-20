@@ -2,7 +2,7 @@
 import axios from 'axios';
 
 //css
-import './FormCreateAccount.css';
+import './formcreateaccount.css';
 
 // react-router-dom
 import { useNavigate } from 'react-router-dom';

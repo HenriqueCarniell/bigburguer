@@ -2,7 +2,7 @@
 import axios from 'axios';
 
 //css
-import './FormLoginAccount.css';
+import './formloginaccount.css';
 
 //react
 import { ChangeEvent, useState } from 'react';
