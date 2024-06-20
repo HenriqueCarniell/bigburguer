@@ -2,7 +2,7 @@
 import './Cart.css';
 
 import axios from "axios";
-import Header from "../header/header";
+import Header from "../header/Header";
 import { useEffect, useState } from "react";
 import { Button, Card } from "react-bootstrap";
 
