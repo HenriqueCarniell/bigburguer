@@ -1,17 +1,21 @@
-// axios
-import axios from "axios";
+//css
+import './DetailsHamburguer.css';
 
-// react
+// React
 import { useEffect, useState } from "react";
 
-// react-router-dom
+//UseParams
 import { useParams } from "react-router-dom";
 
-// react icons
+//axios
+import axios from "axios";
+
+// React Icons
 import { HiOutlineArrowLeft } from "react-icons/hi";
 
-// css
-import './DetailsHamburguer.css'
+// useToast
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 interface productsType {
     idproduto: number,
@@ -22,22 +26,21 @@ interface productsType {
 }
 
 function DetailsHamburguer() {
-
     const [saveDataHamburguer, setDataHamburguer] = useState<productsType[]>([]);
-    const [saveIdUsuario, setIdUsuario] = useState<string | null>('')
+    const [saveIdUsuario, setIdUsuario] = useState<string | null>('');
     const { idproduto } = useParams();
 
     useEffect(() => {
-        axios.get(`http://localhost:4000/get/detailproduct/${idproduto}`)
+        axios.get(`https://api-bigburguer.onrender.com/get/detailproduct/${idproduto}`)
             .then(response => {
                 setDataHamburguer(response.data)
-            })
-    });
+            });
+    }, [idproduto]);
 
     useEffect(() => {
         let idusuario = localStorage.getItem('idusuario');
-        setIdUsuario(idusuario)
-    }, [])
+        setIdUsuario(idusuario);
+    }, []);
 
     const token = localStorage.getItem('token');
 
@@ -48,14 +51,21 @@ function DetailsHamburguer() {
     };
 
     let HandleSaveProductCart = (idproduto: number): void => {
-        axios.get(`http://localhost:4000/add/cart/product/${idproduto}/${saveIdUsuario}`, config)
+        axios.get(`https://api-bigburguer.onrender.com/add/cart/product/${idproduto}/${saveIdUsuario}`, config)
             .then((response) => {
-                console.log(response)
+                console.log(response);
+                if (response.status === 200) {
+                    toast.success("Produto adicionado ao carrinho com sucesso!")
+                }
             })
+            .catch((error) => {
+                console.log(error);
+            });
     }
 
     return (
         <div>
+            <ToastContainer />
             {
                 saveDataHamburguer.map((item, key) => (
                     <div key={key} className='div-detail-products'>
@@ -86,7 +96,6 @@ function DetailsHamburguer() {
                 ))
             }
         </div>
-
     );
 }
 

@@ -25,7 +25,7 @@ function Cart() {
     }, []);
 
     useEffect(() => {
-        axios.get(`http://localhost:4000/get/cart/product/${saveIdUsuario}`)
+        axios.get(`https://api-bigburguer.onrender.com/get/cart/product/${saveIdUsuario}`)
             .then((response) => {
                 setCartData(response.data.products);
                 setTotalPrice(response.data.total_preco);
@@ -45,12 +45,12 @@ function Cart() {
     };
 
     const handleDeleteProductCart = (idproduto: number): void => {
-        axios.delete(`http://localhost:4000/delete/product/${idproduto}/${saveIdUsuario}`, config)
+        axios.delete(`https://api-bigburguer.onrender.com/delete/product/${idproduto}/${saveIdUsuario}`, config)
             .then(() => {
                 const updatedCartData = saveCartData.filter(item => item.idproduto !== idproduto);
-                const updatedTotalPrice = updatedCartData.reduce((acc, item) => acc + item.preco, 0);
+                const updatedTotalPrice = updatedCartData.reduce((acc, item) => acc - item.preco, 0);
                 setCartData(updatedCartData);
-                setTotalPrice(updatedTotalPrice);
+                setTotalPrice(-updatedTotalPrice);
             })
             .catch((err: unknown) => {
                 console.log(err);
