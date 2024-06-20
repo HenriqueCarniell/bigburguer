@@ -1,5 +1,5 @@
 // CSS
-import './sidebar.css';
+import './Sidebar.css';
 
 //bootstrap
 import { useEffect, useState } from 'react';

@@ -1,5 +1,5 @@
 //css
-import './header.css'
+import './Header.css'
 
 //react icons
 import { CiSearch } from "react-icons/ci";
@@ -12,7 +12,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import { useContext, useEffect, useState } from 'react';
-import OffCanvasExample from '../sidebar/sidebar'
+import OffCanvasExample from '../sidebar/Sidebar'
 import { BsJustify } from "react-icons/bs";
 
 //Context

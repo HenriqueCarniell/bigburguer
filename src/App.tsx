@@ -5,12 +5,12 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { SearchProduct } from './context/searchContext';
 
 //Components
-import Header from './components/header/header';
-import FormCreateAccount from './components/forms/formcreateaccount/formcreateaccount';
-import FormLoginAccount from './components/forms/formlogin/formloginaccount';
-import Main from './components/main/main';
-import DetailsHamburguer from './components/detailshamburguer/detailshamburguer';
-import Cart from './components/cart/cart';
+import Header from './components/header/Header';
+import FormCreateAccount from './components/forms/formcreateaccount/Formcreateaccount';
+import FormLoginAccount from './components/forms/formlogin/Formloginaccount';
+import Main from './components/main/Main';
+import DetailsHamburguer from './components/detailshamburguer/Detailshamburguer';
+import Cart from './components/cart/Cart';
 
 function App() {
 

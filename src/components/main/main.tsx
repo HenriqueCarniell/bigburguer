@@ -1,5 +1,5 @@
 //css
-import './main.css'
+import './Main.css'
 
 //react
 import { useContext, useEffect, useState } from 'react'
