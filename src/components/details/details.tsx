@@ -1,66 +1,54 @@
 //css
-<<<<<<< HEAD:src/components/DetailsHamburguer/DetailsHamburguer.tsx
-import './DetailsHamburguer.css';
+import './detailsHamburguer.css'
 
 //react
-=======
-import './detailsHamburguer.css';
-
-// React
->>>>>>> 480cce6bf109a6640c1bab84c561a5a672a28828:src/components/details/details.tsx
 import { useEffect, useState } from "react";
 
-//UseParams
+// react-router-dom
 import { useParams } from "react-router-dom";
 
 //axios
 import axios from "axios";
 
-<<<<<<< HEAD:src/components/DetailsHamburguer/DetailsHamburguer.tsx
 //react-icons
 import { HiOutlineArrowLeft } from "react-icons/hi";
 
-//tast
-import { Bounce, ToastContainer, toast } from 'react-toastify';
+//toast
+import { ToastContainer, toast, Bounce } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 //bootstrap
 import { Spinner } from 'react-bootstrap';
-=======
-// React Icons
-import { HiOutlineArrowLeft } from "react-icons/hi";
 
-// useToast
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
->>>>>>> 480cce6bf109a6640c1bab84c561a5a672a28828:src/components/details/details.tsx
-
-interface productsType {
-    idproduto: number,
-    nome: string,
-    descricao: string,
-    imagem: string,
-    preco: number
+interface ProductsType {
+    idproduto: number;
+    nome: string;
+    descricao: string;
+    imagem: string;
+    preco: number;
 }
 
 function DetailsHamburguer() {
-    const [saveDataHamburguer, setDataHamburguer] = useState<productsType[]>([]);
-    const [saveIdUsuario, setIdUsuario] = useState<string | null>('');
-<<<<<<< HEAD:src/components/DetailsHamburguer/DetailsHamburguer.tsx
+    const [saveDataHamburguer, setDataHamburguer] = useState<ProductsType[]>([]);
+    const [saveIdUsuario, setIdUsuario] = useState<string | null>(null);
     const [saveLoading, setLoading] = useState<boolean>(false);
-=======
->>>>>>> 480cce6bf109a6640c1bab84c561a5a672a28828:src/components/details/details.tsx
     const { idproduto } = useParams();
 
     useEffect(() => {
-        axios.get(`https://api-bigburguer.onrender.com/get/detailproduct/${idproduto}`)
-            .then(response => {
-                setDataHamburguer(response.data)
-            });
+        const fetchProductData = async () => {
+            try {
+                const response = await axios.get(`https://api-bigburguer.onrender.com/get/detailproduct/${idproduto}`);
+                setDataHamburguer(response.data);
+            } catch (error) {
+                console.error(error);
+            }
+        };
+
+        fetchProductData();
     }, [idproduto]);
 
     useEffect(() => {
-        let idusuario = localStorage.getItem('idusuario');
+        const idusuario = localStorage.getItem('idusuario');
         setIdUsuario(idusuario);
     }, []);
 
@@ -72,34 +60,7 @@ function DetailsHamburguer() {
         }
     };
 
-    let HandleSaveProductCart = (idproduto: number): void => {
-<<<<<<< HEAD:src/components/DetailsHamburguer/DetailsHamburguer.tsx
-        setLoading(true)
-        try {
-            axios.get(`http://localhost:4000/add/cart/product/${idproduto}/${saveIdUsuario}`, config)
-                .then((response) => {
-                    console.log(response);
-                    if (response.status === 200) {
-                        toast.success('Produto adicionado no carrinho com sucesso', {
-                            position: "top-right",
-                            autoClose: 5000,
-                            hideProgressBar: false,
-                            closeOnClick: true,
-                            pauseOnHover: true,
-                            draggable: true,
-                            progress: undefined,
-                            theme: "light",
-                            transition: Bounce,
-                        });
-                    }
-                })
-        }
-        catch (error: unknown) {
-            console.log(error);
-        } finally {
-            setLoading(false);
-        }
-
+    const HandleSaveProductCart = async (idproduto: number): Promise<void> => {
         if (!saveIdUsuario) {
             toast.error('Você precisa estar logado para adicionar um produto ao carrinho', {
                 position: "top-right",
@@ -112,25 +73,36 @@ function DetailsHamburguer() {
                 theme: "light",
                 transition: Bounce,
             });
+            return;
         }
-=======
-        axios.get(`https://api-bigburguer.onrender.com/add/cart/product/${idproduto}/${saveIdUsuario}`, config)
-            .then((response) => {
-                console.log(response);
-                if (response.status === 200) {
-                    toast.success("Produto adicionado ao carrinho com sucesso!")
-                }
-            })
-            .catch((error) => {
-                console.log(error);
-            });
->>>>>>> 480cce6bf109a6640c1bab84c561a5a672a28828:src/components/details/details.tsx
-    }
+
+        setLoading(true);
+        try {
+            const response = await axios.get(`https://api-bigburguer.onrender.com/add/cart/product/${idproduto}/${saveIdUsuario}`, config);
+            if (response.status === 200) {
+                toast.success('Produto adicionado no carrinho com sucesso', {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                    transition: Bounce,
+                });
+            }
+        } catch (error) {
+            console.error(error);
+        } finally {
+            setLoading(false);
+        }
+    };
 
     return (
         <div>
             <ToastContainer />
-            {
+            {saveDataHamburguer.length > 0 ? (
                 saveDataHamburguer.map((item, key) => (
                     <div key={key} className='div-detail-products'>
                         <div className="div-goback">
@@ -138,7 +110,7 @@ function DetailsHamburguer() {
                         </div>
                         <div className="div-image-desc">
                             <div className="image-detailhamburguer">
-                                <img src={`${item.imagem}`} alt="" />
+                                <img src={item.imagem} alt="" />
                             </div>
 
                             <div className="desc">
@@ -164,7 +136,9 @@ function DetailsHamburguer() {
                         </div>
                     </div>
                 ))
-            }
+            ) : (
+                <div>Carregando...</div>
+            )}
         </div>
     );
 }
