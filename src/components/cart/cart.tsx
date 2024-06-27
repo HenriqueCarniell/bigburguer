@@ -37,7 +37,7 @@ function Cart() {
             });
     }, [saveIdUsuario]);
 
-    let token = localStorage.getItem('token')
+    let token = localStorage.getItem('token');
 
     const config = {
         headers: {
