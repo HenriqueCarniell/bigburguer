@@ -11,6 +11,7 @@ import { useNavigate } from 'react-router-dom';
 import { ChangeEvent, useState } from 'react';
 
 //bootstrap
+import Spinner from 'react-bootstrap/Spinner';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 
@@ -19,6 +20,7 @@ function FormCreateAccount() {
     const [saveRegisterEmail, setRegisterEmail] = useState<string>('');
     const [saveRegisterPassword, setRegisterPassword] = useState<string>('');
     const [saveMsgRegister, setMsgRegister] = useState<string>('');
+    const [saveLoading, setLoading] = useState<boolean>(false)
 
     let HandleSaveName = (e: ChangeEvent<HTMLInputElement>): void => {
         setRegisterName(e.target.value);
@@ -35,6 +37,7 @@ function FormCreateAccount() {
     const navigation = useNavigate()
 
     let HandleSendDataBackend = async () => {
+        setLoading(true);
         try {
             let response = await axios.post('http://localhost:4000/send/register/data', {
                 RegisterName: saveRegisterName,
@@ -49,6 +52,8 @@ function FormCreateAccount() {
 
         } catch (err: unknown) {
             console.log(err);
+        } finally {
+            setLoading(false);
         }
     }
 
@@ -60,27 +65,31 @@ function FormCreateAccount() {
                 </div>
                 <Form.Group className="mb-3" controlId="formBasicName">
                     <Form.Label>Nome:</Form.Label>
-                    <Form.Control type="Name" placeholder="Digite um nome" onChange={HandleSaveName} />
+                    <Form.Control type="Name" placeholder="Digite um nome" onChange={HandleSaveName} disabled={saveLoading}/>
                     <Form.Text className="text-muted">
                     </Form.Text>
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Label>Email:</Form.Label>
-                    <Form.Control type="email" placeholder="Digite um email" onChange={HandleSaveEmail} />
+                    <Form.Control type="email" placeholder="Digite um email" onChange={HandleSaveEmail}  disabled={saveLoading}/>
                     <Form.Text className="text-muted">
                     </Form.Text>
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="formBasicPassword">
                     <Form.Label>Senha: </Form.Label>
-                    <Form.Control type="password" placeholder="Digite uma senha" onChange={HandleSavePassword} />
+                    <Form.Control type="password" placeholder="Digite uma senha" onChange={HandleSavePassword}  disabled={saveLoading}/>
                     {saveMsgRegister}
                 </Form.Group>
 
                 <div className='div-botao-register'>
-                    <Button variant="primary" onClick={HandleSendDataBackend}>
-                        Enviar
+                    <Button variant="primary" onClick={HandleSendDataBackend}  disabled={saveLoading}>
+                    {saveLoading ? (
+                            <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" />
+                        ) : (
+                            'Enviar'
+                        )}
                     </Button>
                 </div>
             </Form>

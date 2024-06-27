@@ -1,17 +1,24 @@
-// axios
-import axios from "axios";
+//css
+import './DetailsHamburguer.css';
 
-// react
+//react
 import { useEffect, useState } from "react";
 
 // react-router-dom
 import { useParams } from "react-router-dom";
 
-// react icons
+//axios
+import axios from "axios";
+
+//react-icons
 import { HiOutlineArrowLeft } from "react-icons/hi";
 
-// css
-import './DetailsHamburguer.css'
+//tast
+import { Bounce, ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+//bootstrap
+import { Spinner } from 'react-bootstrap';
 
 interface productsType {
     idproduto: number,
@@ -22,22 +29,22 @@ interface productsType {
 }
 
 function DetailsHamburguer() {
-
     const [saveDataHamburguer, setDataHamburguer] = useState<productsType[]>([]);
-    const [saveIdUsuario, setIdUsuario] = useState<string | null>('')
+    const [saveIdUsuario, setIdUsuario] = useState<string | null>('');
+    const [saveLoading, setLoading] = useState<boolean>(false);
     const { idproduto } = useParams();
 
     useEffect(() => {
         axios.get(`http://localhost:4000/get/detailproduct/${idproduto}`)
             .then(response => {
                 setDataHamburguer(response.data)
-            })
-    });
+            });
+    }, [idproduto]);
 
     useEffect(() => {
         let idusuario = localStorage.getItem('idusuario');
-        setIdUsuario(idusuario)
-    }, [])
+        setIdUsuario(idusuario);
+    }, []);
 
     const token = localStorage.getItem('token');
 
@@ -48,14 +55,50 @@ function DetailsHamburguer() {
     };
 
     let HandleSaveProductCart = (idproduto: number): void => {
-        axios.get(`http://localhost:4000/add/cart/product/${idproduto}/${saveIdUsuario}`, config)
-            .then((response) => {
-                console.log(response)
-            })
+        setLoading(true)
+        try {
+            axios.get(`http://localhost:4000/add/cart/product/${idproduto}/${saveIdUsuario}`, config)
+                .then((response) => {
+                    console.log(response);
+                    if (response.status === 200) {
+                        toast.success('Produto adicionado no carrinho com sucesso', {
+                            position: "top-right",
+                            autoClose: 5000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            theme: "light",
+                            transition: Bounce,
+                        });
+                    }
+                })
+        }
+        catch (error: unknown) {
+            console.log(error);
+        } finally {
+            setLoading(false);
+        }
+
+        if (!saveIdUsuario) {
+            toast.error('Você precisa estar logado para adicionar um produto ao carrinho', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                transition: Bounce,
+            });
+        }
     }
 
     return (
         <div>
+            <ToastContainer />
             {
                 saveDataHamburguer.map((item, key) => (
                     <div key={key} className='div-detail-products'>
@@ -80,13 +123,18 @@ function DetailsHamburguer() {
                             </div>
                         </div>
                         <div className="div-btn-addcart">
-                            <button className="primary botao-add-cart" onClick={() => HandleSaveProductCart(item.idproduto)}>Adicionar ao carrinho</button>
+                            <button className="primary botao-add-cart" onClick={() => HandleSaveProductCart(item.idproduto)} disabled={saveLoading}>
+                                {saveLoading ? (
+                                    <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" />
+                                ) : (
+                                    'Adicionar ao carrinho'
+                                )}
+                            </button>
                         </div>
                     </div>
                 ))
             }
         </div>
-
     );
 }
 

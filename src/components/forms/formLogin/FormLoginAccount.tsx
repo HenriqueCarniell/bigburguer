@@ -10,6 +10,7 @@ import { ChangeEvent, useState } from 'react';
 //bootstrap
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import Spinner from 'react-bootstrap/Spinner';
 
 //react-router-dom
 import { useNavigate } from 'react-router-dom';
@@ -18,8 +19,8 @@ function FormLoginAccount() {
 
     const [saveLoginEmail, setLoginEmail] = useState<string>('');
     const [saveLoginPassword, setLoginPassword] = useState<string>('');
-
     const [saveMsgLogin, setMsgLogin] = useState<string>('');
+    const [saveLoading, setIsLoading] = useState<boolean>(false);
 
     let HandleSaveEmail = (e: ChangeEvent<HTMLInputElement>): void => {
         setLoginEmail(e.target.value);
@@ -32,6 +33,7 @@ function FormLoginAccount() {
     const navigate = useNavigate();
 
     const HandleSendDataBackend = async () => {
+        setIsLoading(true);
         try {
             let response = await axios.post('http://localhost:4000/send/login/data', {
                 LoginEmail: saveLoginEmail,
@@ -50,6 +52,8 @@ function FormLoginAccount() {
             }
         } catch (err) {
             console.log(err);
+        } finally {
+            setIsLoading(false);
         }
     }
 
@@ -61,20 +65,24 @@ function FormLoginAccount() {
                 </div>
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Label>Email:</Form.Label>
-                    <Form.Control type="email" placeholder="Digite um email" onChange={HandleSaveEmail} />
+                    <Form.Control type="email" placeholder="Digite um email" onChange={HandleSaveEmail} disabled={saveLoading} />
                     <Form.Text className="text-muted">
                     </Form.Text>
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="formBasicPassword">
                     <Form.Label>Senha: </Form.Label>
-                    <Form.Control type="password" placeholder="Digite uma senha" onChange={HandleSavePassword} />
+                    <Form.Control type="password" placeholder="Digite uma senha" onChange={HandleSavePassword} disabled={saveLoading} />
                 </Form.Group>
                 {saveMsgLogin}
                 <p>Não possui uma conta ? <a href="/criarconta">Crie Uma</a></p>
                 <div className='div-botao-login'>
-                    <Button variant="primary" onClick={HandleSendDataBackend}>
-                        Enviar
+                    <Button variant="primary" onClick={HandleSendDataBackend} disabled={saveLoading}>
+                        {saveLoading ? (
+                            <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" />
+                        ) : (
+                            'Enviar'
+                        )}
                     </Button>
                 </div>
             </Form>

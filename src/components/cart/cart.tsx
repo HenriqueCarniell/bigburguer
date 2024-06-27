@@ -4,7 +4,7 @@ import './cart.css';
 import axios from "axios";
 import Header from "../header/header";
 import { useEffect, useState } from "react";
-import { Button, Card } from "react-bootstrap";
+import { Button, Card, Spinner } from "react-bootstrap";
 
 interface typeProducts {
     idproduto: number,
@@ -18,6 +18,7 @@ function Cart() {
     const [saveCartData, setCartData] = useState<typeProducts[]>([]);
     const [saveIdUsuario, setIdUsuario] = useState<string | null>('');
     const [saveTotalPrice, setTotalPrice] = useState<number | null>(0);
+    const [saveLoading, setIsLoading] = useState<boolean>(false);
 
     useEffect(() => {
         let idusuario = localStorage.getItem('idusuario');
@@ -45,16 +46,21 @@ function Cart() {
     };
 
     const handleDeleteProductCart = (idproduto: number): void => {
-        axios.delete(`http://localhost:4000/delete/product/${idproduto}/${saveIdUsuario}`, config)
-            .then(() => {
-                const updatedCartData = saveCartData.filter(item => item.idproduto !== idproduto);
-                const updatedTotalPrice = updatedCartData.reduce((acc, item) => acc + item.preco, 0);
-                setCartData(updatedCartData);
-                setTotalPrice(updatedTotalPrice);
-            })
-            .catch((err: unknown) => {
-                console.log(err);
-            });
+        setIsLoading(true);
+        try {
+            axios.delete(`http://localhost:4000/delete/product/${idproduto}/${saveIdUsuario}`, config)
+                .then(() => {
+                    const updatedCartData = saveCartData.filter(item => item.idproduto !== idproduto);
+                    const updatedTotalPrice = updatedCartData.reduce((acc, item) => acc - item.preco, 0);
+                    setCartData(updatedCartData);
+                    setTotalPrice(-updatedTotalPrice);
+                })
+        }
+        catch (err: unknown) {
+            console.log(err);
+        } finally {
+            setIsLoading(false);
+        }
     }
 
     return (
@@ -89,7 +95,13 @@ function Cart() {
                                         R$ {item.preco}
                                     </Card.Text>
                                     <Button variant="primary" style={{ width: '100%', marginBottom: '1rem' }}>Comprar</Button>
-                                    <Button variant="danger" style={{ width: '100%' }} onClick={() => handleDeleteProductCart(item.idproduto)}>Deleter do carrinho</Button>
+                                    <Button variant="danger" style={{ width: '100%' }} onClick={() => handleDeleteProductCart(item.idproduto)}>
+                                        {saveLoading ? (
+                                            <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" />
+                                        ) : (
+                                            'Deletar produto'
+                                        )}
+                                    </Button>
                                 </Card.Body>
                             </Card>
                         </div>
