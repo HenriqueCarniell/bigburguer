@@ -1,15 +1,22 @@
 //css
+<<<<<<< HEAD:src/components/DetailsHamburguer/DetailsHamburguer.tsx
 import './DetailsHamburguer.css';
 
 //react
+=======
+import './detailsHamburguer.css';
+
+// React
+>>>>>>> 480cce6bf109a6640c1bab84c561a5a672a28828:src/components/details/details.tsx
 import { useEffect, useState } from "react";
 
-// react-router-dom
+//UseParams
 import { useParams } from "react-router-dom";
 
 //axios
 import axios from "axios";
 
+<<<<<<< HEAD:src/components/DetailsHamburguer/DetailsHamburguer.tsx
 //react-icons
 import { HiOutlineArrowLeft } from "react-icons/hi";
 
@@ -19,6 +26,14 @@ import 'react-toastify/dist/ReactToastify.css';
 
 //bootstrap
 import { Spinner } from 'react-bootstrap';
+=======
+// React Icons
+import { HiOutlineArrowLeft } from "react-icons/hi";
+
+// useToast
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+>>>>>>> 480cce6bf109a6640c1bab84c561a5a672a28828:src/components/details/details.tsx
 
 interface productsType {
     idproduto: number,
@@ -31,11 +46,14 @@ interface productsType {
 function DetailsHamburguer() {
     const [saveDataHamburguer, setDataHamburguer] = useState<productsType[]>([]);
     const [saveIdUsuario, setIdUsuario] = useState<string | null>('');
+<<<<<<< HEAD:src/components/DetailsHamburguer/DetailsHamburguer.tsx
     const [saveLoading, setLoading] = useState<boolean>(false);
+=======
+>>>>>>> 480cce6bf109a6640c1bab84c561a5a672a28828:src/components/details/details.tsx
     const { idproduto } = useParams();
 
     useEffect(() => {
-        axios.get(`http://localhost:4000/get/detailproduct/${idproduto}`)
+        axios.get(`https://api-bigburguer.onrender.com/get/detailproduct/${idproduto}`)
             .then(response => {
                 setDataHamburguer(response.data)
             });
@@ -55,6 +73,7 @@ function DetailsHamburguer() {
     };
 
     let HandleSaveProductCart = (idproduto: number): void => {
+<<<<<<< HEAD:src/components/DetailsHamburguer/DetailsHamburguer.tsx
         setLoading(true)
         try {
             axios.get(`http://localhost:4000/add/cart/product/${idproduto}/${saveIdUsuario}`, config)
@@ -94,6 +113,18 @@ function DetailsHamburguer() {
                 transition: Bounce,
             });
         }
+=======
+        axios.get(`https://api-bigburguer.onrender.com/add/cart/product/${idproduto}/${saveIdUsuario}`, config)
+            .then((response) => {
+                console.log(response);
+                if (response.status === 200) {
+                    toast.success("Produto adicionado ao carrinho com sucesso!")
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+>>>>>>> 480cce6bf109a6640c1bab84c561a5a672a28828:src/components/details/details.tsx
     }
 
     return (

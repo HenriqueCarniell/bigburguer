@@ -2,7 +2,7 @@
 import axios from 'axios';
 
 //css
-import './FormCreateAccount.css';
+import './formcreateaccount.css';
 
 // react-router-dom
 import { useNavigate } from 'react-router-dom';
@@ -39,7 +39,7 @@ function FormCreateAccount() {
     let HandleSendDataBackend = async () => {
         setLoading(true);
         try {
-            let response = await axios.post('http://localhost:4000/send/register/data', {
+            let response = await axios.post('https://api-bigburguer.onrender.com/send/register/data', {
                 RegisterName: saveRegisterName,
                 RegisterEmail: saveRegisterEmail,
                 RegisterPassword: saveRegisterPassword
