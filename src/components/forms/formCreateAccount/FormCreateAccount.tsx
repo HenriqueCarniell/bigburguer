@@ -65,27 +65,27 @@ function FormCreateAccount() {
                 </div>
                 <Form.Group className="mb-3" controlId="formBasicName">
                     <Form.Label>Nome:</Form.Label>
-                    <Form.Control type="Name" placeholder="Digite um nome" onChange={HandleSaveName} disabled={saveLoading}/>
+                    <Form.Control type="Name" placeholder="Digite um nome" onChange={HandleSaveName} disabled={saveLoading} />
                     <Form.Text className="text-muted">
                     </Form.Text>
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Label>Email:</Form.Label>
-                    <Form.Control type="email" placeholder="Digite um email" onChange={HandleSaveEmail}  disabled={saveLoading}/>
+                    <Form.Control type="email" placeholder="Digite um email" onChange={HandleSaveEmail} disabled={saveLoading} />
                     <Form.Text className="text-muted">
                     </Form.Text>
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="formBasicPassword">
                     <Form.Label>Senha: </Form.Label>
-                    <Form.Control type="password" placeholder="Digite uma senha" onChange={HandleSavePassword}  disabled={saveLoading}/>
+                    <Form.Control type="password" placeholder="Digite uma senha" onChange={HandleSavePassword} disabled={saveLoading} />
                     {saveMsgRegister}
                 </Form.Group>
 
                 <div className='div-botao-register'>
-                    <Button variant="primary" onClick={HandleSendDataBackend}  disabled={saveLoading}>
-                    {saveLoading ? (
+                    <Button variant="primary" onClick={HandleSendDataBackend} disabled={saveLoading}>
+                        {saveLoading ? (
                             <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" />
                         ) : (
                             'Enviar'
